@@ -1,0 +1,4 @@
+gain 0 1 -40
+gain 0 2 -40
+gain 1 0 -40
+gain 2 0 -40
