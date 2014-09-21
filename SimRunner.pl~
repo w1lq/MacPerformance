@@ -32,7 +32,7 @@ sub runSimulations($;)
 {
 	my $topology_path = shift;
 	system('mkdir TEMP');
-	for(my $i = 1; $i<251; $i++)
+	for(my $i = 1; $i<51; $i++)
 	{
 		do
 		{
