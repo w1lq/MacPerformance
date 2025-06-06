@@ -1,6 +1,14 @@
 #! /usr/bin/python
-from TOSSIM import *
-from sets import Set
+from __future__ import print_function
+try:
+    from TOSSIM import *
+except ImportError:
+    pass
+try:
+    from sets import Set
+except ImportError:
+    # Python 3 compatibility - use built-in set type
+    Set = set
 import sys
 from optparse import OptionParser
 
@@ -14,18 +22,18 @@ parser.add_option("-g", "--gainfile",
 	help="file containing gains between simulation nodes")
 
 parser.add_option("-n", "--noisefile",
-	action="store",
-	dest="noise",
-	default="Noise/meyer-heavy-short.txt",
-	help="file containing gains between simulation nodes")
+        action="store",
+        dest="noise",
+        default="Noise/meyer-heavy-short.txt",
+        help="file containing noise values for simulation nodes")
 
 (options, args) = parser.parse_args()
 
 options_dict = vars(options)
 
-print options_dict['gainfile']
+print(options_dict['gainfile'])
 
-print "Simulation start"
+print("Simulation start")
 
 from tinyos.tossim.TossimApp import *
 n = NescApp()
@@ -40,18 +48,18 @@ gainfile = open(options_dict['gainfile'], "r")
 
 nodes = Set([])
 
-print "Simulation Topology:"
+print("Simulation Topology:")
 lines = gainfile.readlines()
 for line in lines:
 	splitlines = line.split() 
 	if (len(splitlines) > 0):
 		if (splitlines[0] == "gain"):
 			r.add(int(splitlines[1]), int(splitlines[2]), float(splitlines[3].replace(",",".")))
-			print "Source:", splitlines[1], "Destination:", splitlines[2], "Gain:", splitlines[3], "dBm";
+			print("Source:", splitlines[1], "Destination:", splitlines[2], "Gain:", splitlines[3], "dBm")
 			nodes.add(int(splitlines[1]))
 			nodes.add(int(splitlines[2]))
 
-print "Number of nodes: " + str(len(nodes)) + ", nodes' ids:", nodes
+print("Number of nodes: " + str(len(nodes)) + ", nodes' ids:", nodes)
 
 # Allocating debug outputs
 energy_output = open("Simulation/Energy.txt", "w")
@@ -73,7 +81,7 @@ for line in lines:
 			t.getNode(node).addNoiseTraceReading(val)
 
 for node in nodes:
-	print "Creating noise model for node " + str(node) + "."
+	print("Creating noise model for node " + str(node) + ".")
 	t.getNode(node).createNoiseModel()
 
 # Boot time spread
@@ -96,9 +104,9 @@ for node in nodes:
 	received_packets = v.getData()
 	c = m.getVariable("MacPerformanceC.counter")
 	sent_packets = c.getData()	
-	print "The node id", node, "has sent", sent_packets, "and received", received_packets, "in total.";	
+	print("The node id", node, "has sent", sent_packets, "and received", received_packets, "in total.")
 
 	resultfile.write("%d,%d,%d\n" % (node, sent_packets, received_packets))
 
-print "End of simulation."
+print("End of simulation.")
 
