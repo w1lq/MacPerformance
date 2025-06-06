@@ -292,7 +292,7 @@ sub getPacketData($;)
 		{
 			$packet_H_ref->{sent}->{$1} = $2;
 		}	
-		elsif($line =~ /\A.*:\sRecieved:\s(\d+)\s;\s(\d+)\Z/)
+		elsif($line =~ /\A.*:\sReceived:\s(\d+)\s;\s(\d+)\Z/)
 		{
 				$packet_H_ref->{recieved}->{$1} = $2;
 		}

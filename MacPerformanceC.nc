@@ -352,7 +352,7 @@ implementation
             MacPerformanceMsg* mppkt = (MacPerformanceMsg*)payload;
             if(0 == TOS_NODE_ID)
             {
-                dbg("PacketState", "Recieved: %hu ; %llu\n", mppkt->counter, sim_time());
+                dbg("PacketState", "Received: %hu ; %llu\n", mppkt->counter, sim_time());
             }
         }   
 
