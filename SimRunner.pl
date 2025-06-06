@@ -302,10 +302,10 @@ sub getPacketData($;)
 	{
 		delete $packet_H_ref->{recieved}->{'0'};
 	}
-	if(defined($packet_H_ref->{sent}->{'0'}))
-	{
-		delete $packet_H_ref->{recieved}->{'0'};
-	}
+        if(defined($packet_H_ref->{sent}->{'0'}))
+        {
+                delete $packet_H_ref->{sent}->{'0'};
+        }
 	return $packet_H_ref;
 }
 
